@@ -97,6 +97,7 @@ Page({
     wx.login({
       success: function(res) {
         WXAPI.login(res.code).then(function(res) {
+          console.log('login ->>>' + JSON.stringify(res))
           if (res.code == 10000) {
             // 去注册
             that.registerUser();

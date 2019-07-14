@@ -136,6 +136,8 @@ Page({
         return;
       }
 
+      
+
       if (e && "buyNow" != that.data.orderType) {
         // 清空购物车数据
         wx.removeStorageSync('shopCarInfo');
@@ -178,6 +180,7 @@ Page({
         value: '您可以重新下单，请在30分钟内完成支付',
         color: '#173177'
       }
+      console.log('订单发送 -> ' + JSON.stringify(postData) + '订单返回 =>> ' + JSON.stringify(res) + '  --->>>  ' + JSON.stringify(postJsonString))
       WXAPI.sendTempleMsg({
         module: 'order',
         business_id: res.data.id,

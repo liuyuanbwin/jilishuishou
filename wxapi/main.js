@@ -1,10 +1,10 @@
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 const CONFIG = require('./config.js')
-const API_BASE_URL = 'https://api.it120.cc'
+const API_BASE_URL = 'http://shuishou.bl1000.cn'
 
 
 const request = (url, needSubDomain, method, data) => {
-  let _url = API_BASE_URL + (needSubDomain ? '/' + CONFIG.subDomain : '') + url
+  let _url = API_BASE_URL + url
   return new Promise((resolve, reject) => {
     wx.request({
       url: _url,
@@ -140,7 +140,7 @@ module.exports = {
     return request('/pay/alipay/semiAutomatic/payurl', true, 'post', data)
   },
   login: (code) => {
-    return request('/user/wxapp/login', true, 'post', {
+    return request('/api/login', true, 'post', {
       code,
       type: 2
     })
