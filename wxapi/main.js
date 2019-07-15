@@ -155,7 +155,7 @@ module.exports = {
     return request('/shop/goods/category/all', true, 'get')
   },
   goods: (data) => {
-    return request('/shop/goods/list', true, 'post', data)
+    return request('/api/goodlist', true, 'post')
   },
   goodsDetail: (id) => {
     return request('/shop/goods/detail', true, 'get', {
@@ -203,7 +203,7 @@ module.exports = {
     })
   },
   queryAddress: (token) => {
-    return request('/user/shipping-address/list', true, 'get', {
+    return request('/api/addresslist', true, 'post', {
       token
     })
   },
@@ -256,7 +256,7 @@ module.exports = {
     return request('/order/create', true, 'post', data)
   },
   orderList: (data) => {
-    return request('/order/list', true, 'post', data)
+    return request('/api/orderlist', true, 'post', data)
   },
   orderDetail: (id, token) => {
     return request('/order/detail', true, 'get', {

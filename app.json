@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/authorize/index",
     "pages/start/start",
     "pages/index/index",
     "pages/goods-details/index",
@@ -17,7 +18,6 @@
     "pages/recharge/index",
     "pages/withdraw/index",
     "pages/kanjia/index",
-    "pages/authorize/index",
     "pages/authorize/bindmobile",
     "pages/score-excharge/index",
     "pages/asset/index",

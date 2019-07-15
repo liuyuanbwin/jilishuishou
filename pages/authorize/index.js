@@ -78,6 +78,21 @@ Page({
       })
     }
   },
+  products:function(){
+    WXAPI.goods().then((res) => {
+      console.log('商品列表返回 -> ' + JSON.stringify(res));
+    })
+  },
+  addresses:()=>{
+    WXAPI.queryAddress().then((res) => {
+      console.log('地址列表返回 -> ' + JSON.stringify(res))
+    })
+  },
+  orderlist:()=>{
+    WXAPI.orderList().then((res) => {
+      console.log('订单列表 -> ' + JSON.stringify(res))
+    })
+  },
   login: function() {
     const that = this;
     const token = wx.getStorageSync('token');
