@@ -191,10 +191,10 @@ module.exports = {
     })
   },
   addAddress: (data) => {
-    return request('/user/shipping-address/add', true, 'post', data)
+    return request('/api/address/addressadd', true, 'post', data)
   },
   updateAddress: (data) => {
-    return request('/user/shipping-address/update', true, 'post', data)
+    return request('/api/address/addressupdate', true, 'post', data)
   },
   deleteAddress: (id, token) => {
     return request('/user/shipping-address/delete', true, 'post', {

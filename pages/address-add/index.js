@@ -80,27 +80,26 @@ Page({
       apiResult = WXAPI.updateAddress({
         token: wx.getStorageSync('token'),
         id: that.data.id,
-        provinceId: this.data.pObject.id,
-        cityId: this.data.cObject.id,
-        districtId: this.data.dObject ? this.data.dObject.id : '',
-        linkMan: linkMan,
-        address: address,
-        mobile: mobile,
-
-        isDefault: 'true'
+        name:linkMan,
+        phone:mobile,
+        province:'北京',
+        city:this.data.location,
+        region:this.data.county,
+        address:address,
+        state:1
       })
 
       //否则是新建
     } else {
       apiResult = WXAPI.addAddress({
         token: wx.getStorageSync('token'),
-        provinceId: this.data.pObject.id,
-        cityId: this.data.cObject.id,
-        districtId: this.data.dObject ? this.data.dObject.id : '',
-        linkMan: linkMan,
-        address: address,
-        mobile: mobile,
-        isDefault: 'true'
+        name:linkMan,
+        phone:mobile,
+        province:'北京',
+        city:this.data.location,
+        region:this.data.county,
+        address:address,
+        state:1
       })
     }
     apiResult.then(function (res) {
