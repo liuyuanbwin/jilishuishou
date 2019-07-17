@@ -11,5 +11,6 @@
     <button type="primary" bindtap="orderlist" class="weui-btn mini-btn">订单列表</button>
 
      <button size="mini" type="default" bindtap="toAddAddress" class="weui-btn mini-btn">跳转添加地址</button>
+     <button size="mini" type="default" bindtap="toEditAddress" class="weui-btn mini-btn">跳转编辑地址</button>
     </form>
 </view>

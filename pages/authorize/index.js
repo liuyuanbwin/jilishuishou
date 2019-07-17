@@ -100,6 +100,11 @@ Page({
       url: '/pages/address-add/index'
     })
   },
+  toEditAddress:() => {
+    wx.navigateTo({
+      url: '/pages/address-add/index?id=1'
+    })
+  },
   login: function() {
     const that = this;
     const token = wx.getStorageSync('token');

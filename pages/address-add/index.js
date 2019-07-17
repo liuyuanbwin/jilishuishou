@@ -118,7 +118,12 @@ Page({
     })
   },
   onLoad: function (e) {
-   
+    const that = this
+    if(e.id){
+       that.setData({
+         id:e.id
+       })
+    }
   },
   deleteAddress: function (e) {
     var that = this;
