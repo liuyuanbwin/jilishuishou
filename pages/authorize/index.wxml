@@ -9,5 +9,7 @@
     <button type="primary" bindtap="addresses" class="weui-btn mini-btn">地址列表</button>
    
     <button type="primary" bindtap="orderlist" class="weui-btn mini-btn">订单列表</button>
+
+     <button size="mini" type="default" bindtap="toAddAddress" class="weui-btn mini-btn">跳转添加地址</button>
     </form>
 </view>

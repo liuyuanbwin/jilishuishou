@@ -163,6 +163,8 @@ App({
   globalData: {                
     isConnected: true,
     launchOption: undefined,
-    vipLevel: 0
+    vipLevel: 0,
+    defaultCity: '北京市',
+    defaultCounty: '石景山区'
   }
 })

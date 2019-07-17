@@ -24,10 +24,12 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面显示
+  //  * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    // wx.navigateTo({
+    //   url: '/pages/address-add/index'
+    // })
   },
 
   /**
@@ -41,7 +43,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    
   },
 
   /**
@@ -91,6 +93,11 @@ Page({
   orderlist:()=>{
     WXAPI.orderList().then((res) => {
       console.log('订单列表 -> ' + JSON.stringify(res))
+    })
+  },
+  toAddAddress:() => {
+    wx.navigateTo({
+      url: '/pages/address-add/index'
     })
   },
   login: function() {

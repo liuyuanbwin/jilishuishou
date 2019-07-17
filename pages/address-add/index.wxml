@@ -1,5 +1,4 @@
 <view class="container">
-  <button wx:if="{{!addressData}}" type="primary" class="save-btn" bindtap="readFromWx">读取微信地址</button>
     <form bindsubmit="bindSave" report-submit="true">
     <view class="form-box">
         <view class="row-wrap">
@@ -14,22 +13,14 @@
                 <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}{{wxaddress.telNumber}}"/>
             </view>
         </view>
-        <view class="row-wrap" bindtap="selectCity">
+        <view class="row-wrap" >
             <view class="label">选择地区</view>
-            <picker mode="multiSelector" range="{{pickerRegionRange}}" range-key="name" value="{{pickerSelect}}" bindchange="bindchange" bindcolumnchange="bindcolumnchange">
-              {{showRegionStr}}
-            </picker>
+            <text bindtap="bindSelectCity">{{location}}{{county}}</text>
         </view>
         <view class="addr-details">
             <view class="label">详细地址</view>
             <view class="label-right">
                 <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}{{wxaddress.detailInfo}}"/>
-            </view>
-        </view>
-        <view class="row-wrap">
-            <view class="label">邮政编号</view>
-            <view class="label-right">
-                <input name="code" class="input" type="text" value="{{addressData.code}}{{wxaddress.postalCode}}"/>
             </view>
         </view>
     </view>

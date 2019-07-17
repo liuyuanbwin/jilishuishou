@@ -2,13 +2,13 @@ form {
   width:750rpx;
 }
 .logo {
-  width:200rpx;
-  margin-top:180rpx;
-  margin-left:275rpx;
+  width:100rpx;
+  margin-top:10rpx;
+  margin-left:325rpx;
 }
 .title {
   text-align: center;
-  margin-top:70rpx;
+  margin-top:20rpx;
 }
 .profile {
   text-align: center;
