@@ -39,5 +39,10 @@
             type="default"
             bindtap="toEditAddress"
             class="weui-btn mini-btn">跳转编辑地址</button>
+            <button
+            size="mini"
+            type="default"
+            bindtap="addgood"
+            class="weui-btn mini-btn">添加商品</button>
     </form>
 </view>

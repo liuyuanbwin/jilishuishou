@@ -155,7 +155,10 @@ module.exports = {
     return request('/shop/goods/category/all', true, 'get')
   },
   goods: (data) => {
-    return request('/api/goodlist', true, 'post')
+    return request('/api/goods/goodslist', true, 'post')
+  },
+  addgoods: (data) => {
+    return request('/api/goods/goodsadd', true, 'post',data)
   },
   goodsDetail: (id) => {
     return request('/shop/goods/detail', true, 'get', {

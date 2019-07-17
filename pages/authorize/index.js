@@ -80,6 +80,23 @@ Page({
       })
     }
   },
+  addgood:function(){
+    WXAPI.addgoods({
+      price:99,
+name:"100L 大桶水",
+detail:"康师傅",
+numberSells:88,
+originalPrice:199,
+pic:'https://wx3.sinaimg.cn/mw690/a203cadely1g5362nra82j20us0u00yu.jpg',
+shopId:1,
+shopName:'西站',
+state:1,
+weight:88
+
+    }).then((res) => {
+      console.log('添加商品 -> ' + JSON.stringify(res));
+    })
+  },
   products:function(){
     WXAPI.goods().then((res) => {
       console.log('商品列表返回 -> ' + JSON.stringify(res));
