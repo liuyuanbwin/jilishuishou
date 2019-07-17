@@ -203,7 +203,7 @@ module.exports = {
     })
   },
   queryAddress: (token) => {
-    return request('/api/addresslist', true, 'post', {
+    return request('/api/address/addresslist', true, 'post', {
       token
     })
   },
