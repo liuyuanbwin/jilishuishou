@@ -23,8 +23,15 @@ Page({
   },
 
   editAddess: function(e) {
+    var ad
+    console.log(JSON.stringify(this.data.addressList))
+    this.data.addressList.forEach(element => {
+      if (element.id ==  e.currentTarget.dataset.id){
+        ad = element
+      } 
+    });
     wx.navigateTo({
-      url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
+      url: "/pages/address-add/index?id=" + ad.id + "&name=" + ad.name + "&phone=" + ad.phone + "&province=" + ad.province + "&city=" + ad.city + "&region=" + ad.region + "&address=" + ad.address
     })
   },
 
@@ -39,9 +46,11 @@ Page({
   initShippingAddress: function() {
     var that = this;
     WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
-      if (res.code == 0) {
+      console.log(' --- >>> ' + JSON.stringify(res.objList))
+
+      if (res.objList.length != 0) {
         that.setData({
-          addressList: res.data
+          addressList: res.objList
         });
       } else if (res.code == 700) {
         that.setData({

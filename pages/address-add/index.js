@@ -6,16 +6,25 @@ const { globalData: { defaultCity, defaultCounty } } = appInstance
 var app = getApp()
 Page({
   data: {
+    addressData:{},
     location: defaultCity,
     county:defaultCounty,
-    showRegionStr: '请选择'
+    showRegionStr: '请选择',
+    isPickReginBack:true
+
   },
   onShow: function(){
+    if(this.data.isPickReginBack){
     const { globalData: { defaultCity, defaultCounty } } = appInstance
     this.setData({
       location: defaultCity,
       county: defaultCounty
     })
+  }else{
+    this.setData({
+      isPickReginBack:true
+    })
+  }
   },
   //选择城市
   bindSelectCity:function(){
@@ -121,8 +130,16 @@ Page({
     const that = this
     if(e.id){
        that.setData({
-         id:e.id
-       })
+         id:e.id,
+         addressData:{
+           linkMan:e.name,
+           mobile:e.phone,
+           address:e.address
+       },
+          location:e.city,
+          county:e.region,
+          isPickReginBack:false
+      })
     }
   },
   deleteAddress: function (e) {

@@ -95,6 +95,11 @@ Page({
       console.log('订单列表 -> ' + JSON.stringify(res))
     })
   },
+  toAddAddresslist:() => {
+    wx.navigateTo({
+      url: '/pages/select-address/index'
+    })
+  },
   toAddAddress:() => {
     wx.navigateTo({
       url: '/pages/address-add/index'
