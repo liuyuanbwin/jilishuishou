@@ -57,6 +57,9 @@ Page({
     dateMinute:date.getMinutes(),
     dateDate:'2019-01-01',
     dateTime:'09:00',
+
+
+    totalPrice:0
   },
   onShow: function () {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
@@ -125,13 +128,13 @@ Page({
 
     let postData = {
       token: loginToken,
-      goodsJsonStr: that.data.goodsJsonStr,
+      //goodsJsonStr: that.data.goodsJsonStr,
       remark: remark,
-      peisongType: that.data.peisongType
+      //peisongType: that.data.peisongType
     };
    
 
-    if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
+    if (that.data.isNeedLogistics > 0 && that.data.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showModal({
@@ -141,17 +144,18 @@ Page({
         })
         return;
       }
-      if (postData.peisongType == 'kd') {
+      if (that.data.peisongType == 'kd') {
 
         postData.city = that.data.curAddressData.city,
-        postData.region = that.data.curAddressData.region,
-        postData.address = that.data.curAddressData.address;
-        postData.linkMan = that.data.curAddressData.linkMan;
-        postData.mobile = that.data.curAddressData.phone;
+        postData.region = that.data.curAddressData.region
+        postData.address = that.data.curAddressData.address
+        postData.linkMan = that.data.curAddressData.linkMan
+        postData.mobile = that.data.curAddressData.phone
         if(that.data.isDateDelivery){
         postData.dateInfo = that.data.dateDate + ' ' + that.data.dateTime
         }
-        postData.goodsInfo = postData.goodsJsonStr
+        postData.goodsInfo = that.data.goodsJsonStr
+        postData.totalPrice = that.data.allGoodsPrice
       }      
 
       console.log(' postData ---> ' + JSON.stringify(postData))
@@ -177,17 +181,17 @@ Page({
         // 清空购物车数据
         wx.removeStorageSync('shopCarInfo');
       }
-      if (!e) {
-        that.setData({
-          totalScoreToPay: res.data.score,
-          isNeedLogistics: res.data.isNeedLogistics,
-          allGoodsPrice: res.data.amountTotle,
-          allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
-          yunPrice: res.data.amountLogistics
-        });
-        that.getMyCoupons();
-        return;
-      }
+      // if (!e) {
+      //   that.setData({
+      //     totalScoreToPay: res.data.score,
+      //     isNeedLogistics: res.data.isNeedLogistics,
+      //     allGoodsPrice: res.data.amountTotle,
+      //     allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
+      //     yunPrice: res.data.amountLogistics
+      //   });
+      //   that.getMyCoupons();
+      //   return;
+      // }
       WXAPI.addTempleMsgFormid({
         token: wx.getStorageSync('token'),
         type: 'form',
@@ -277,6 +281,9 @@ Page({
           phone:address.phone
         }
       })
+
+      that.processYunfei()
+
     })
 
 
@@ -309,6 +316,8 @@ Page({
     if (inviter_id_storge) {
       inviter_id = inviter_id_storge;
     }
+
+    var totalPrice = 0
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
       if (carShopBean.logistics) {
@@ -321,7 +330,7 @@ Page({
         goodsJsonStrTmp = ",";
       }
 
-      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
+      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + '}';
       goodsJsonStr += goodsJsonStrTmp;
 
 
@@ -329,10 +338,11 @@ Page({
     goodsJsonStr += "]";
     //console.log(goodsJsonStr);
     that.setData({
-      isNeedLogistics: isNeedLogistics,
-      goodsJsonStr: goodsJsonStr
+     // isNeedLogistics: isNeedLogistics,
+      goodsJsonStr: goodsJsonStr,
+      allGoodsPrice
     });
-    that.createOrder();
+    //that.createOrder();
   },
   addAddress: function () {
     wx.navigateTo({
@@ -344,25 +354,25 @@ Page({
       url: "/pages/select-address/index"
     })
   },
-  getMyCoupons: function () {
-    var that = this;
-    WXAPI.myCoupons({
-      token: wx.getStorageSync('token'),
-      status: 0
-    }).then(function (res) {
-      if (res.code == 0) {
-        var coupons = res.data.filter(entity => {
-          return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
-        });
-        if (coupons.length > 0) {
-          that.setData({
-            hasNoCoupons: false,
-            coupons: coupons
-          });
-        }
-      }
-    })
-  },
+  // getMyCoupons: function () {
+  //   var that = this;
+  //   WXAPI.myCoupons({
+  //     token: wx.getStorageSync('token'),
+  //     status: 0
+  //   }).then(function (res) {
+  //     if (res.code == 0) {
+  //       var coupons = res.data.filter(entity => {
+  //         return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
+  //       });
+  //       if (coupons.length > 0) {
+  //         that.setData({
+  //           hasNoCoupons: false,
+  //           coupons: coupons
+  //         });
+  //       }
+  //     }
+  //   })
+  // },
   bindChangeCoupon: function (e) {
     const selIndex = e.detail.value[0] - 1;
     if (selIndex == -1) {

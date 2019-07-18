@@ -256,7 +256,7 @@ module.exports = {
     })
   },
   orderCreate: (data) => {
-    return request('/api/address/addresslist', true, 'post', data)
+    return request('/api/orders/orderadd ', true, 'post', data)
     // return request('/order/create', true, 'post', data)
   },
   orderList: (data) => {
