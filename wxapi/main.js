@@ -211,9 +211,12 @@ module.exports = {
     })
   },
   defaultAddress: (token) => {
-    return request('/user/shipping-address/default', true, 'get', {
+    return request('/api/address/defaddress', true, 'get', {
       token
     })
+  },
+  setDefaultAddress: (data) => {
+    return request('/api/address/setdefaddress', true, 'post', data)
   },
   addressDetail: (id, token) => {
     return request('/user/shipping-address/detail', true, 'get', {

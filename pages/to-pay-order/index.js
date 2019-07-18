@@ -261,17 +261,9 @@ Page({
   },
   initShippingAddress: function () {
     var that = this;
-    WXAPI.queryAddress().then(function(res){
-      var addresses = res.objList
-      
-      var address 
-      addresses.forEach(element => {
-        if(element.state == 1){
-          address = element
-        }
-      })
-      console.log('地址列表 ' + JSON.stringify(address))
-    
+    WXAPI.defaultAddress().then(function(res){
+      console.log('地址列表 ' + JSON.stringify(res))
+      var address = res 
       that.setData({
         curAddressData:{
           city:address.city,
