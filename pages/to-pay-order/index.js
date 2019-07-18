@@ -1,11 +1,32 @@
 const app = getApp()
 const WXAPI = require('../../wxapi/main')
 
+
+const date = new Date()
+const years = []
+const months = []
+const days = []
+const hours = []
+const minutes = []
+
+for(let i = 2019; i<=date.getFullYear() + 1;i++){
+  years.push(i)
+}
+
+for(let i = i; i <= 12; i ++){
+  months.push(i)
+}
+
+for(let i = 1; i <= 31; i++){
+  days.push(i)
+}
+
+
 Page({
   data: {
     totalScoreToPay: 0,
     goodsList: [],
-    isNeedLogistics: 0, // 是否需要物流信息
+    isNeedLogistics: 1, // 是否需要物流信息
     allGoodsPrice: 0,
     yunPrice: 0,
     allGoodsAndYunPrice: 0,
@@ -18,7 +39,24 @@ Page({
     youhuijine: 0, //优惠券金额
     curCoupon: null, // 当前选择使用的优惠券
     allowSelfCollection: '0', // 是否允许到店自提
-    peisongType: 'zq' // 配送方式 kd,zq 分别表示快递/到店自取
+    peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
+
+
+
+    isDateDelivery:false,//是否预约送水
+    appointDate:"", //预约送水时间
+
+    years,
+    dateYear:date.getFullYear(),
+    months,
+    dateMonth:date.getMonth,
+    days,
+    dateDay:date.getDay(),
+    value:[2019,1,1],
+    dateHour:date.getHours(),
+    dateMinute:date.getMinutes(),
+    dateDate:'2019-01-01',
+    dateTime:'09:00',
   },
   onShow: function () {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
@@ -91,12 +129,8 @@ Page({
       remark: remark,
       peisongType: that.data.peisongType
     };
-    if (that.data.kjId) {
-      postData.kjid = that.data.kjId
-    }
-    if (that.data.pingtuanOpenId) {
-      postData.pingtuanOpenId = that.data.pingtuanOpenId
-    }
+   
+
     if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
@@ -108,20 +142,21 @@ Page({
         return;
       }
       if (postData.peisongType == 'kd') {
-        postData.provinceId = that.data.curAddressData.provinceId;
-        postData.cityId = that.data.curAddressData.cityId;
-        if (that.data.curAddressData.districtId) {
-          postData.districtId = that.data.curAddressData.districtId;
-        }
+
+        postData.city = that.data.curAddressData.city,
+        postData.region = that.data.curAddressData.region,
         postData.address = that.data.curAddressData.address;
         postData.linkMan = that.data.curAddressData.linkMan;
-        postData.mobile = that.data.curAddressData.mobile;
-        postData.code = that.data.curAddressData.code;
+        postData.mobile = that.data.curAddressData.phone;
+        if(that.data.isDateDelivery){
+        postData.dateInfo = that.data.dateDate + ' ' + that.data.dateTime
+        }
+        postData.goodsInfo = postData.goodsJsonStr
       }      
+
+      console.log(' postData ---> ' + JSON.stringify(postData))
     }
-    if (that.data.curCoupon) {
-      postData.couponId = that.data.curCoupon.id;
-    }
+    
     if (!e) {
       postData.calculate = "true";
     }
@@ -130,7 +165,7 @@ Page({
       if (res.code != 0) {
         wx.showModal({
           title: '错误',
-          content: res.msg,
+          content: '订单生成失败',
           showCancel: false
         })
         return;
@@ -222,18 +257,44 @@ Page({
   },
   initShippingAddress: function () {
     var that = this;
-    WXAPI.defaultAddress(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.setData({
-          curAddressData: res.data
-        });
-      } else {
-        that.setData({
-          curAddressData: null
-        });
-      }
-      that.processYunfei();
+    WXAPI.queryAddress().then(function(res){
+      var addresses = res.objList
+      
+      var address 
+      addresses.forEach(element => {
+        if(element.state == 1){
+          address = element
+        }
+      })
+      console.log('地址列表 ' + JSON.stringify(address))
+    
+      that.setData({
+        curAddressData:{
+          city:address.city,
+          region:address.region,
+          address:address.address,
+          linkMan:address.name,
+          phone:address.phone
+        }
+      })
     })
+
+
+
+
+    
+    // WXAPI.defaultAddress(wx.getStorageSync('token')).then(function (res) {
+    //   if (res.code == 0) {
+    //     that.setData({
+    //       curAddressData: res.data
+    //     });
+    //   } else {
+    //     that.setData({
+    //       curAddressData: null
+    //     });
+    //   }
+    //   that.processYunfei();
+    // })
   },
   processYunfei: function () {
     var that = this;
@@ -320,6 +381,27 @@ Page({
   radioChange (e) {
     this.setData({
       peisongType: e.detail.value
+    })
+  },
+  dateDelivery:function(e){
+    console.log('是否是预约送水' + e.detail.value)
+    this.setData({
+      isDateDelivery:e.detail.value
+    })
+  },
+  modifyAppointDate:function(e){
+    
+  },
+  bindAppointDateChange:function(e){
+    console.log('预约日期为 ' + e.detail.value)
+    this.setData({
+      dateDate:e.detail.value
+    })
+  },
+  bindAppointTimeChange:function(e){
+    console.log('预约时间为 ' + e.detail.value)
+    this.setData({
+      dateTime:e.detail.value
     })
   }
 })

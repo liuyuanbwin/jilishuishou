@@ -27,7 +27,7 @@
 
           <view class='goods-info'>
             <text >{{goods.name}}</text>
-            <text style='color:red;'>￥{{goods.minPrice}}</text>
+            <text style='color:red;'>￥{{goods.price}}</text>
           </view>
 
 

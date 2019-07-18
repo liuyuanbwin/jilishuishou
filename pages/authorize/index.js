@@ -27,9 +27,9 @@ Page({
   //  * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // wx.navigateTo({
-    //   url: '/pages/address-add/index'
-    // })
+    wx.navigateTo({
+      url: '/pages/category/category'
+    })
   },
 
   /**
@@ -126,6 +126,17 @@ weight:88
     wx.navigateTo({
       url: '/pages/address-add/index?id=1'
     })
+  },
+  toGoodList:() => {
+    wx.navigateTo({
+      url: '/pages/category/category',
+      success: (result) => {
+        
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+      
   },
   login: function() {
     const that = this;

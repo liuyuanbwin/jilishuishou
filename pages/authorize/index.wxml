@@ -44,5 +44,11 @@
             type="default"
             bindtap="addgood"
             class="weui-btn mini-btn">添加商品</button>
+
+            <button
+            size="mini"
+            type="default"
+            bindtap="toGoodList"
+            class="weui-btn mini-btn">商品列表</button>
     </form>
 </view>

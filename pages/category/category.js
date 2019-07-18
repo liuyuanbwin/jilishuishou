@@ -20,7 +20,8 @@ Page({
    */
   onLoad: function(options) {
 
-    this.initData();
+   // this.initData();
+   this.getGoodsList()
   },
   initData() {
 
@@ -62,11 +63,7 @@ Page({
 
     let that = this;
 
-    WXAPI.goods({
-      categoryId: "",
-      page: 1,
-      pageSize: 100000
-    }).then(function(res) {
+    WXAPI.goods().then(function(res) {
       if (res.code == 404 || res.code == 700) {
 
         return
@@ -74,27 +71,33 @@ Page({
       let goodsWrap = [];
 
 
-      that.data.categories.forEach((o, index) => {
+      // that.data.categories.forEach((o, index) => {
 
         let wrap = {};
-        wrap.id = o.id;
-        wrap.scrollId = "s" + o.id;
-        wrap.name = o.name;
+        wrap.id = 1;
+        wrap.scrollId = "s" + 1;
+        wrap.name = '桶装水';
         let goods = [];
 
         wrap.goods = goods;
-        res.data.forEach((item, i) => {
+      //   res.data.forEach((item, i) => {
 
-          if (item.categoryId == wrap.id) {
+      //     if (item.categoryId == wrap.id) {
 
-            goods.push(item)
-          }
-        })
+      //       goods.push(item)
+      //     }
+      //   })
 
-        goodsWrap.push(wrap);
-      })
+      //   goodsWrap.push(wrap);
+      // })
 
+      console.log('goods ==> ' + JSON.stringify(res.objList))
 
+      res.objList.forEach(currentItem => {
+        goods.push(currentItem)
+      });
+
+      goodsWrap.push(wrap)
 
       that.setData({
         goodsWrap: goodsWrap,
@@ -109,8 +112,15 @@ Page({
     });
   },
   toDetailsTap: function(e) {
+    var good 
+    this.data.goodsWrap[0].goods.forEach(element => {
+        if(element.id == e.currentTarget.dataset.id){
+          good = element
+        }
+    });
+    console.log(' good ' + "/pages/goods-details/index?id=" + good.id + "&name=" + good.name + "&price=" + good.price + "&originalPrice=" + good.originalPrice + "&numberSells=" + good.numberSells + "&pic=" + good.pic + "&weight=" + good.weight + "&detail=" + good.detail + "&state=" + good.state )
     wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+      url: "/pages/goods-details/index?id=" + good.id + "&name=" + good.name + "&price=" + good.price + "&originalPrice=" + good.originalPrice + "&numberSells=" + good.numberSells + "&pic=" + good.pic + "&weight=" + good.weight + "&detail=" + good.detail + "&state=" + good.state 
     })
   },
   onCategoryClick: function(e) {
@@ -125,61 +135,61 @@ Page({
   },
   scroll: function(e) {
 
-    if (this.categoryClick){
-      this.categoryClick = false;
-      return;
-    }
+    // if (this.categoryClick){
+    //   this.categoryClick = false;
+    //   return;
+    // }
 
-    let scrollTop = e.detail.scrollTop;
+    // let scrollTop = e.detail.scrollTop;
 
-    let that = this;
+    // let that = this;
 
-    let offset = 0;
-    let isBreak = false;
+    // let offset = 0;
+    // let isBreak = false;
 
-    for (let g = 0; g < this.data.goodsWrap.length; g++) {
+    // for (let g = 0; g < this.data.goodsWrap.length; g++) {
 
-      let goodWrap = this.data.goodsWrap[g];
+    //   let goodWrap = this.data.goodsWrap[g];
 
-      offset += 30;
+    //   offset += 30;
 
-      if (scrollTop <= offset) {
+    //   if (scrollTop <= offset) {
 
-        if (this.data.categoryToView != goodWrap.scrollId) {
-          this.setData({
-            categorySelected: goodWrap.scrollId,
-            categoryToView: goodWrap.scrollId,
-          })
-        }
+    //     if (this.data.categoryToView != goodWrap.scrollId) {
+    //       this.setData({
+    //         categorySelected: goodWrap.scrollId,
+    //         categoryToView: goodWrap.scrollId,
+    //       })
+    //     }
 
-        break;
-      }
-
-
-      for (let i = 0; i < goodWrap.goods.length; i++) {
-
-        offset += 91;
-
-        if (scrollTop <= offset) {
-
-          if (this.data.categoryToView != goodWrap.scrollId) {
-            this.setData({
-              categorySelected: goodWrap.scrollId,
-              categoryToView: goodWrap.scrollId,
-            })
-          }
-
-          isBreak = true;
-          break;
-        }
-      }
-
-      if (isBreak){
-        break;
-      }
+    //     break;
+    //   }
 
 
-    }
+    //   for (let i = 0; i < goodWrap.goods.length; i++) {
+
+    //     offset += 91;
+
+    //     if (scrollTop <= offset) {
+
+    //       if (this.data.categoryToView != goodWrap.scrollId) {
+    //         this.setData({
+    //           categorySelected: goodWrap.scrollId,
+    //           categoryToView: goodWrap.scrollId,
+    //         })
+    //       }
+
+    //       isBreak = true;
+    //       break;
+    //     }
+    //   }
+
+    //   if (isBreak){
+    //     break;
+    //   }
+
+
+    // }
 
   
   }

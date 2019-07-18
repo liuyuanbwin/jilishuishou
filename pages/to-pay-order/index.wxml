@@ -1,5 +1,14 @@
 <view class="container">
-     <form bindsubmit="createOrder" report-submit="true">     
+     <form bindsubmit="createOrder" report-submit="true"> 
+            <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
+                    <view class="add-address" hidden="{{curAddressData}}">
+                        <view class="title" bindtap="addAddress">新增收货地址</view>
+                    </view>
+                    <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+                        <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
+                        <view class="addr-text">{{curAddressData.address}}</view>
+                    </view>
+                 </view>    
      <view class="goods-list">
         <view class="list-title">商品列表</view>
         <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
@@ -19,7 +28,7 @@
         </view>
      </view>
      <view class="peisong-way">
-        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+        <!-- <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">配送方式</view>
             <radio-group bindchange="radioChange">
               <label class="radio">
@@ -38,7 +47,7 @@
               <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
               <view class="addr-text">{{curAddressData.address}}</view>
           </view>
-        </view>
+        </view> -->
         <view class="row-box">
             <view class="row-label">备注</view>
             <view class="right-text">
@@ -46,7 +55,36 @@
             </view>
         </view>
      </view>
-     <view class="peisong-way" hidden="{{hasNoCoupons}}">
+     <view class="peisong-way">
+         <view class="row-box">
+            <view class="row-label">预约送水</view>
+            <switch bindchange="dateDelivery" />
+        </view>
+        <view class="row-box" wx:if="{{isDateDelivery}}">
+            <picker style="width:100%;text-align: right;font-size: 28rpx;" mode="date" value="{{dateDate}}" start="2019-01-01" end="2030-12-31" bindchange="bindAppointDateChange">
+                <view class="right-text">
+                    预约日期: {{dateDate}}
+                </view>
+            </picker>
+        </view>
+        <view class="row-box" wx:if="{{isDateDelivery}}">
+            <picker style="width:100%;text-align: right;font-size: 28rpx;" mode="time" value="{{dateTime}}" start="09:01" end="21:01" bindchange="bindAppointTimeChange">
+                <view class="right-text">
+                    预约时间: {{dateTime}}
+                </view>
+            </picker>
+        </view>
+        <!--
+         <view wx:if="{{isDateDelivery}}" class="row-box">
+             
+            <view class="row-label">
+            <view class="right-text">{{dateYear}}年{{dateMonth}}月{{dateDay}}日 {{dateHour}}:{{dateMinute}} </view>
+            </view>
+            <button class="modify-date-btn" bindtap="modifyAppointDate">修改</button>
+         </view>
+         -->
+     </view>
+     <!-- <view class="peisong-way" hidden="{{hasNoCoupons}}">
         <view class="row-box" style="border-bottom:none;">
             <view class="row-label">选择使用优惠券</view>
         </view>
@@ -58,10 +96,10 @@
             </picker-view-column>
           </picker-view>
         </view>
-     </view>
+     </view> -->
 
 
-     <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
+     <!-- <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
         <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
             <view class="row-label">商品金额</view>
             <view class="right-text">¥ {{allGoodsPrice}}</view>
@@ -74,7 +112,7 @@
             <view class="row-label">优惠券</view>
             <view class="right-text">- ¥ {{youhuijine}}</view>
         </view>
-     </view>
+     </view> -->
 
      <view class="jiesuan-box">
         <view class="left-price">

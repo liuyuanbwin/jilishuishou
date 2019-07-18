@@ -137,7 +137,7 @@ Page({
            address:e.address
        },
           location:e.city,
-          county:e.region,
+          country:e.region,
           isPickReginBack:false
       })
     }
