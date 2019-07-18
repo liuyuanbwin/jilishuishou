@@ -87,7 +87,8 @@ App({
     this.navigateToLogin = true
     setTimeout(function() {
       wx.navigateTo({
-        url: "/pages/authorize/index"
+        //url: "/pages/authorize/index"
+        url: "/pages/category/category"
       })
     }, 1000)
   },

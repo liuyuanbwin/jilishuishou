@@ -36,7 +36,8 @@ Page({
         }
       }).catch(function (e) {
         wx.switchTab({
-          url: '/pages/index/index',
+          //url: '/pages/index/index',
+          url: '/pages/category/category',
         });
       })
     }
