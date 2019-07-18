@@ -5,19 +5,19 @@ App({
   onLaunch: function() {
     const that = this;
     // 检测新版本
-    const updateManager = wx.getUpdateManager()
-    updateManager.onUpdateReady(function () {
-      wx.showModal({
-        title: '更新提示',
-        content: '新版本已经准备好，是否重启应用？',
-        success(res) {
-          if (res.confirm) {
-            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-            updateManager.applyUpdate()
-          }
-        }
-      })
-    })
+    // const updateManager = wx.getUpdateManager()
+    // updateManager.onUpdateReady(function () {
+    //   wx.showModal({
+    //     title: '更新提示',
+    //     content: '新版本已经准备好，是否重启应用？',
+    //     success(res) {
+    //       if (res.confirm) {
+    //         // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+    //         updateManager.applyUpdate()
+    //       }
+    //     }
+    //   })
+    // })
     /**
      * 初次加载判断网络情况
      * 无网络状态下根据实际情况进行调整
@@ -56,28 +56,28 @@ App({
       }
     });
     //  获取接口和后台权限
-    WXAPI.vipLevel().then(res => {
-      that.globalData.vipLevel = res.data
-    })
-    //  获取商城名称
-    WXAPI.queryConfigBatch('mallName,recharge_amount_min,ALLOW_SELF_COLLECTION,RECHARGE_OPEN').then(function(res) {
-      if (res.code == 0) {
-        res.data.forEach(config => {
-          wx.setStorageSync(config.key, config.value);
-          if (config.key === 'recharge_amount_min') {
-            that.globalData.recharge_amount_min = res.data.value;
-          }
-        })
+    // WXAPI.vipLevel().then(res => {
+    //   that.globalData.vipLevel = res.data
+    // })
+    // //  获取商城名称
+    // WXAPI.queryConfigBatch('mallName,recharge_amount_min,ALLOW_SELF_COLLECTION,RECHARGE_OPEN').then(function(res) {
+    //   if (res.code == 0) {
+    //     res.data.forEach(config => {
+    //       wx.setStorageSync(config.key, config.value);
+    //       if (config.key === 'recharge_amount_min') {
+    //         that.globalData.recharge_amount_min = res.data.value;
+    //       }
+    //     })
         
-      }
-    })
-    WXAPI.scoreRules({
-      code: 'goodReputation'
-    }).then(function(res) {
-      if (res.code == 0) {        
-        that.globalData.order_reputation_score = res.data[0].score;
-      }
-    })
+    //   }
+    // })
+    // WXAPI.scoreRules({
+    //   code: 'goodReputation'
+    // }).then(function(res) {
+    //   if (res.code == 0) {        
+    //     that.globalData.order_reputation_score = res.data[0].score;
+    //   }
+    // })
   },
   goLoginPageTimeOut: function() {
     if (this.navigateToLogin){
@@ -87,8 +87,8 @@ App({
     this.navigateToLogin = true
     setTimeout(function() {
       wx.navigateTo({
-        //url: "/pages/authorize/index"
-        url: "/pages/category/category"
+        url: "/pages/authorize/index"
+       // url: "/pages/category/category"
       })
     }, 1000)
   },

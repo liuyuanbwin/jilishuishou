@@ -20,26 +20,31 @@ Page({
         url: '/pages/index/index',
       });
     } else {
-      // 展示启动页
-      WXAPI.banners({
-        type: 'app'
-      }).then(function (res) {
-        if (res.code == 700) {
-          wx.switchTab({
+      wx.switchTab({
             url: '/pages/index/index',
+           // url: '/pages/category/category',
           });
-        } else {
-          _this.setData({
-            banners: res.data,
-            swiperMaxNumber: res.data.length
-          });
-        }
-      }).catch(function (e) {
-        wx.switchTab({
-          //url: '/pages/index/index',
-          url: '/pages/category/category',
-        });
-      })
+      // 展示启动页
+      // WXAPI.banners({
+      //   type: 'app'
+      // }).then(function (res) {
+      //   if (res.code == 700) {
+      //     wx.switchTab({
+      //       url: '/pages/index/index',
+      //     });
+      //   } else {
+      //     _this.setData({
+      //       banners: res.data,
+      //       swiperMaxNumber: res.data.length
+      //     });
+      //   }
+      // }).catch(function (e) {
+      //   console.log(' 启动页出错了  ')
+      //   wx.switchTab({
+      //     //url: '/pages/index/index',
+      //     url: '/pages/category/category',
+      //   });
+      // })
     }
   },
   onShow:function(){

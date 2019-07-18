@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/category/category",
     "pages/start/start",
     "pages/authorize/index",
     "pages/index/index",
@@ -23,7 +24,7 @@
     "pages/asset/index",
     "pages/score/index",
     "pages/sign/index",
-    "pages/category/category",
+   
     "pages/maidan/index",
     "pages/fx/apply",
     "pages/fx/apply-status",
