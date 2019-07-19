@@ -55,7 +55,6 @@
         "selectedIconPath": "images/nav/home-on.png",
         "text": "订水"
       },
-     
       {
         "pagePath": "pages/my/index",
         "iconPath": "images/nav/my-off.png",

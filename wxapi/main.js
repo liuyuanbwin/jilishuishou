@@ -259,11 +259,11 @@ module.exports = {
     })
   },
   orderCreate: (data) => {
-    return request('/api/orders/orderadd ', true, 'post', data)
+    return request('/api/order/orderadd ', true, 'post', data)
     // return request('/order/create', true, 'post', data)
   },
   orderList: (data) => {
-    return request('/api/orderlist', true, 'post', data)
+    return request('/api/order/orderlist', true, 'post', data)
   },
   orderDetail: (id, token) => {
     return request('/order/detail', true, 'get', {
