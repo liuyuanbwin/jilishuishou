@@ -3,7 +3,7 @@ const app = getApp()
 const WXAPI = require('../../wxapi/main')
 Page({
   data: {
-    statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    statusType: ["待付款", "待取水", "待送达", "待回桶", "已完成"],
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""]
@@ -42,53 +42,70 @@ Page({
     })
   },
   toPayTap: function(e) {
+
     const that = this;
     const orderId = e.currentTarget.dataset.id;
     let money = e.currentTarget.dataset.money;
-    const needScore = e.currentTarget.dataset.score;
-    WXAPI.userAmount(wx.getStorageSync('token')).then(function(res) {
-      if (res.code == 0) {
-        // 增加提示框
-        if (res.data.score < needScore) {
-          wx.showToast({
-            title: '您的积分不足，无法支付',
-            icon: 'none'
-          })
-          return;
-        }
-        let _msg = '订单金额: ' + money +' 元'
-        if (res.data.balance > 0) {
-          _msg += ',可用余额为 ' + res.data.balance +' 元'
-          if (money - res.data.balance > 0) {
-            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
-          }          
-        }
-        if (needScore > 0) {
-          _msg += ',并扣除 ' + money + ' 积分'
-        }
-        money = money - res.data.balance
-        wx.showModal({
-          title: '请确认支付',
-          content: _msg,
-          confirmText: "确认支付",
-          cancelText: "取消支付",
-          success: function (res) {
-            console.log(res);
-            if (res.confirm) {
-              that._toPayTap(orderId, money)
-            } else {
-              console.log('用户点击取消支付')
-            }
-          }
-        });
-      } else {
-        wx.showModal({
-          title: '错误',
-          content: '无法获取用户资金信息',
-          showCancel: false
-        })
+    wx.navigateTo({
+      url: '/pages/order-list/index',
+      success: function(res){
+        // success
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
       }
     })
+    //wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
+    // const that = this;
+    // const orderId = e.currentTarget.dataset.id;
+    // let money = e.currentTarget.dataset.money;
+    // const needScore = e.currentTarget.dataset.score;
+    // WXAPI.userAmount(wx.getStorageSync('token')).then(function(res) {
+    //   if (res.code == 0) {
+    //     // 增加提示框
+    //     if (res.data.score < needScore) {
+    //       wx.showToast({
+    //         title: '您的积分不足，无法支付',
+    //         icon: 'none'
+    //       })
+    //       return;
+    //     }
+    //     let _msg = '订单金额: ' + money +' 元'
+    //     if (res.data.balance > 0) {
+    //       _msg += ',可用余额为 ' + res.data.balance +' 元'
+    //       if (money - res.data.balance > 0) {
+    //         _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+    //       }          
+    //     }
+    //     if (needScore > 0) {
+    //       _msg += ',并扣除 ' + money + ' 积分'
+    //     }
+    //     money = money - res.data.balance
+    //     wx.showModal({
+    //       title: '请确认支付',
+    //       content: _msg,
+    //       confirmText: "确认支付",
+    //       cancelText: "取消支付",
+    //       success: function (res) {
+    //         console.log(res);
+    //         if (res.confirm) {
+    //           that._toPayTap(orderId, money)
+    //         } else {
+    //           console.log('用户点击取消支付')
+    //         }
+    //       }
+    //     });
+    //   } else {
+    //     wx.showModal({
+    //       title: '错误',
+    //       content: '无法获取用户资金信息',
+    //       showCancel: false
+    //     })
+    //   }
+    // })
   },
   _toPayTap: function (orderId, money){
     const _this = this
@@ -169,11 +186,12 @@ Page({
     }
     this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
-      if (res.code == 0) {
+      //if (res.code == 0) {
+        if(res){
         that.setData({
-          orderList: res.data.orderList,
-          logisticsMap: res.data.logisticsMap,
-          goodsMap: res.data.goodsMap
+          orderList: res.objList,
+         // logisticsMap: res.data.logisticsMap,
+         // goodsMap: res.data.goodsMap
         });
       } else {
         that.setData({
