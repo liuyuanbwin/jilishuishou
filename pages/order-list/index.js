@@ -187,9 +187,7 @@ Page({
     //this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
         if(res){
-<<<<<<< HEAD
-          console.log('订单列表' + JSON.stringify(res.objList))
-=======
+
 
         var objs = []
         objs = res.objList
@@ -198,8 +196,6 @@ Page({
         });
 
         console.log('objs -> ' + objs + 'objs -> ' + JSON.stringify(objs))
-
->>>>>>> 2ebff0693bdf04ff13b2f9e5e476c1605dfb3e14
         that.setData({
           orderList: objs
         });
