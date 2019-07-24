@@ -24,6 +24,16 @@
     color:#e64340;
     border-bottom: 6rpx solid #e64340;
 }
+.red-dot{
+    margin-top: 8rpx;
+    color: green;
+    float: right;
+    background: #e64340;
+    height: 24rpx;
+    width:24rpx;
+    border: 1px solid red;
+    border-radius: 12rpx
+}
 .no-order{
     width: 100%;
     position: absolute;

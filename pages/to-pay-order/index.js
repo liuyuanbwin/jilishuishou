@@ -312,6 +312,8 @@ Page({
     var totalPrice = 0
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
+
+
       if (carShopBean.logistics) {
         isNeedLogistics = 1;
       }
@@ -322,7 +324,9 @@ Page({
         goodsJsonStrTmp = ",";
       }
 
-      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + '}';
+
+
+      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"pic":"' + carShopBean.pic + '","name":"' + carShopBean.name +'","price":' + carShopBean.price + '}';
       goodsJsonStr += goodsJsonStrTmp;
 
 

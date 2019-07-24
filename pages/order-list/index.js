@@ -6,7 +6,7 @@ Page({
     statusType: ["待付款", "待取水", "待送达", "待回桶", "已完成"],
     hasRefund: false,
     currentType: 0,
-    tabClass: ["", "", "", "", ""]
+    tabClass: [1, 0, 0,0,0]
   },
   statusTap: function(e) {
     const curType = e.currentTarget.dataset.index;
@@ -184,15 +184,24 @@ Page({
     if (!postData.hasRefund) {
       postData.status = that.data.currentType;
     }
-    this.getOrderStatistics();
+    //this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
-      //if (res.code == 0) {
         if(res){
+<<<<<<< HEAD
           console.log('订单列表' + JSON.stringify(res.objList))
+=======
+
+        var objs = []
+        objs = res.objList
+        objs.forEach(element => {
+          element.goods = JSON.parse(element.goodsInfo)[0]
+        });
+
+        console.log('objs -> ' + objs + 'objs -> ' + JSON.stringify(objs))
+
+>>>>>>> 2ebff0693bdf04ff13b2f9e5e476c1605dfb3e14
         that.setData({
-          orderList: res.objList,
-         // logisticsMap: res.data.logisticsMap,
-         // goodsMap: res.data.goodsMap
+          orderList: objs
         });
       } else {
         that.setData({
