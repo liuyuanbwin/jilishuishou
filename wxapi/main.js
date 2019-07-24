@@ -266,9 +266,9 @@ module.exports = {
     return request('/api/order/orderlist', true, 'post', data)
   },
   orderDetail: (id, token) => {
-    return request('/order/detail', true, 'get', {
-      id,
-      token
+    return request('/api/order/orderDetails', true, 'post', {
+      orderId:id,
+      //token
     })
   },
   orderDelivery: (orderId, token) => {

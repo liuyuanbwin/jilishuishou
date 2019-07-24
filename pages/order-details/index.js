@@ -17,17 +17,22 @@ Page({
     },
     onShow : function () {
       var that = this;
-      WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
-        if (res.code != 0) {
-          wx.showModal({
-            title: '错误',
-            content: res.msg,
-            showCancel: false
-          })
-          return;
-        }
+      WXAPI.orderDetail(that.data.orderId, 'token').then(function (res) {
+
+        console.log('detail ' + JSON.stringify(res))
+        var goods = JSON.parse(res.goodsInfo)
+        var orderDetailObj = res   
+        orderDetailObj.goods = goods
+        // if (res.code != 0) {
+        //   wx.showModal({
+        //     title: '错误',
+        //     content: res.msg,
+        //     showCancel: false
+        //   })
+        //   return;
+        // }
         that.setData({
-          orderDetail: res.data
+          orderDetail: orderDetailObj
         });
       })
       var yunPrice = parseFloat(this.data.yunPrice);

@@ -188,6 +188,7 @@ Page({
     WXAPI.orderList(postData).then(function(res) {
       //if (res.code == 0) {
         if(res){
+          console.log('订单列表' + JSON.stringify(res.objList))
         that.setData({
           orderList: res.objList,
          // logisticsMap: res.data.logisticsMap,

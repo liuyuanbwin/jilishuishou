@@ -13,7 +13,7 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/order-details/index?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{item.orderNumber}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.state}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.order_id}}</view>
       </navigator>
       <scroll-view class="goods-img-container" scroll-x="true">
         <view class="img-box" wx:for-items="{{goodsMap[item.id]}}" wx:key="{{index}}">
