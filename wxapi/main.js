@@ -220,6 +220,12 @@ module.exports = {
       token:ntoke
     })
   },
+  berider:() => {
+    const ntoke = wx.getStorageSync('token');
+    return request('/api/user/becomeDelivery', true, 'post', {
+      token:ntoke
+    })
+  },
   setDefaultAddress: (data) => {
     return request('/api/address/setdefaddress', true, 'post', data)
   },

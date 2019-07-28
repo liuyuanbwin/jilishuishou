@@ -42,6 +42,11 @@ Page({
       showCancel:false
     })
   },
+  berider: function(){
+    WXAPI.berider().then((res) => {
+      console.log('成为骑手 ---> ' + JSON.stringify(res))
+    })
+  },
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({

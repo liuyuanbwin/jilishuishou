@@ -154,6 +154,7 @@ Page({
                         //     return;
                         // }
                         if(res.code == 0){
+                            
                             wx.setStorageSync('token', res.userinfo.session_key)
                             wx.setStorageSync('uid', res.userinfo.user_id)
                             app.navigateToLogin = false
