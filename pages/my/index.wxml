@@ -86,8 +86,8 @@
   <view class="my-item">
     <navigator url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
   </view>
-  <view class="my-item">
-    <navigator url="/pages/select-address/index" hover-class="navigator-hover">成为骑手</navigator>
+  <view class="my-item" bindtap="berider">
+    成为骑手
   </view>
   <!-- <view class="my-item">
     <navigator url="/pages/coupons/index" hover-class="navigator-hover">领券中心</navigator>

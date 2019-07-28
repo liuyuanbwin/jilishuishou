@@ -154,11 +154,18 @@ Page({
                         //     return;
                         // }
                         if(res.code == 0){
-                            
                             wx.setStorageSync('token', res.userinfo.session_key)
                             wx.setStorageSync('uid', res.userinfo.user_id)
                             app.navigateToLogin = false
-                            wx.navigateBack();
+                            console.log('res.userInfo.is_delivery == ' + res.userinfo.is_delivery)
+                            if(res.userinfo.is_delivery == 0){
+                                wx.navigateBack();
+                            }else{
+                                wx.navigateTo({
+                                    url: "/pages/order-list/index"
+                                  })
+                            }
+                            
                         }else{
                                 // 登录错误
                             wx.hideLoading();
