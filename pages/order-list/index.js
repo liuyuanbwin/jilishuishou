@@ -178,7 +178,8 @@ Page({
     // 获取订单列表
     var that = this;
     var postData = {
-      token: wx.getStorageSync('token')
+      token: wx.getStorageSync('token'),
+      page:1
     };
     postData.hasRefund = that.data.hasRefund;
     if (!postData.hasRefund) {

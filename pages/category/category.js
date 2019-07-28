@@ -21,7 +21,10 @@ Page({
   onLoad: function(options) {
 
    // this.initData();
-   this.getGoodsList()
+   
+  },
+  onShow: function(){
+    this.getGoodsList()
   },
   initData() {
 

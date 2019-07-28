@@ -125,6 +125,7 @@ Page({
                 .checkToken(token)
                 .then(function (res) {
                     if (res.code != 0) {
+                        console.log(' remove  token --- ')
                         wx.removeStorageSync('token')
                         that.login();
                     } else {
@@ -141,22 +142,32 @@ Page({
                     .login(res.code)
                     .then(function (res) {
                         console.log('login ->>>' + JSON.stringify(res))
-                        if (res.code == 10000) {
-                            // 去注册
-                            that.registerUser();
-                            return;
-                        }
-                        if (res.code != 0) {
-                            // 登录错误
+                        // if (res.code == 10000) {
+                        //     // 去注册
+                        //     that.registerUser();
+                        //     return;
+                        // }
+                        // if (res.code != 200) {
+                        //     // 登录错误
+                        //     wx.hideLoading();
+                        //     wx.showModal({title: '提示', content: '无法登录，请重试', showCancel: false})
+                        //     return;
+                        // }
+                        if(res.code == 0){
+                            wx.setStorageSync('token', res.userinfo.session_key)
+                            wx.setStorageSync('uid', res.userinfo.user_id)
+                            app.navigateToLogin = false
+                            wx.navigateBack();
+                        }else{
+                                // 登录错误
                             wx.hideLoading();
                             wx.showModal({title: '提示', content: '无法登录，请重试', showCancel: false})
                             return;
                         }
-                        wx.setStorageSync('token', res.data.token)
-                        wx.setStorageSync('uid', res.data.uid)
+                        
                         // 回到原来的地方放
-                        app.navigateToLogin = false
-                        wx.navigateBack();
+                        // app.navigateToLogin = false
+                        // wx.navigateBack();
                     })
             }
         })

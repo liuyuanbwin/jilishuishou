@@ -155,7 +155,11 @@ module.exports = {
     return request('/shop/goods/category/all', true, 'get')
   },
   goods: (data) => {
-    return request('/api/goods/goodslist', true, 'post')
+    const token = wx.getStorageSync('token');
+    console.log('token ===> ' + token)
+    return request('/api/goods/goodslist', true, 'post',{
+      token
+    })
   },
   addgoods: (data) => {
     return request('/api/goods/goodsadd', true, 'post',data)
@@ -263,7 +267,10 @@ module.exports = {
     // return request('/order/create', true, 'post', data)
   },
   orderList: (data) => {
-    return request('/api/order/orderlist', true, 'post', data)
+    const ndata = {...data}
+    const token = wx.getStorageSync('token');
+    ndata['token'] = token
+    return request('/api/order/orderlist', true, 'post', ndata)
   },
   orderDetail: (id, token) => {
     return request('/api/order/orderDetails', true, 'post', {
