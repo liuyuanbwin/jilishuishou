@@ -181,17 +181,17 @@ Page({
       token: wx.getStorageSync('token'),
       page:1
     };
-    postData.hasRefund = that.data.hasRefund;
-    if (!postData.hasRefund) {
-      postData.status = that.data.currentType;
-    }
+   // postData.hasRefund = that.data.hasRefund;
+    // if (!postData.hasRefund) {
+    //   postData.status = that.data.currentType;
+    // }
     //this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
         if(res){
 
 
         var objs = []
-        objs = res.objList
+        objs = res.data.objList
         objs.forEach(element => {
           element.goods = JSON.parse(element.goodsInfo)[0]
         });

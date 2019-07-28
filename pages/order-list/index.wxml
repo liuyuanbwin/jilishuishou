@@ -20,9 +20,29 @@
             <navigator
                 url="/pages/order-details/index?id={{item.id}}"
                 class="weui-cell weui-cell_access"
-                hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{item.orderNumber}}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">{{item.state}}</view>
+                hover-class="weui-cell_active"
+                style="width: 90%">
+                <view class="icon-box">
+                    <image wx:if="{{item.state== -1}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
+                    <image wx:elif="{{item.state==0}}" class="icon" src="/images/order-details/icon-ddfk.png"></image>
+                    <image wx:elif="{{item.state==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
+                    <image wx:elif="{{item.state==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
+                    <image wx:elif="{{item.state==3 || item.state==4 || item.state==5}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
+                    
+                    
+                    </view>
+    
+                    <view wx:if="{{item.state == 0}}" class="status red">待付款</view>
+                    <view wx:elif="{{item.state == 1}}" class="status red">待接单</view>
+                    <view wx:elif="{{item.state == 2}}" class="status red">待取水</view>
+                    <view wx:elif="{{item.state == 3}}" class="status red">待送达</view>
+                    <view wx:elif="{{item.state == 4}}" class="status red">待回桶</view>
+                    <view wx:elif="{{item.state == 5}}" class="status red">已完成</view>
+                <view class="weui-cell__bd">{{item.stateInfo}}</view> 
+                 
+                
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                
             </navigator>
             <scroll-view class="goods-img-container" scroll-x="true">
                 
@@ -46,12 +66,12 @@
             <view class="price-box">
                 <view
                     class="btn"
-                    hidden="{{item.state==0? false : true}}"
+                    hidden="{{item.state==-1 ? false : true}}"
                     bindtap="cancelOrderTap"
                     data-id="{{item.id}}">取消订单</view>
                 <view
                     class="btn active"
-                    hidden="{{item.state==1? false : true}}"
+                    hidden="{{item.state== 0 ? false : true}}"
                     bindtap="toPayTap"
                     data-id="{{item.id}}"
                     data-money="{{item.totalPrice}}"

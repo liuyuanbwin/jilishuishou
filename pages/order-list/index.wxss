@@ -11,6 +11,27 @@
     align-items: center;
     background-color: #fff;
 }
+.icon-box .icon{
+    width: 80rpx;
+    height: 80rpx;
+}
+.weui-cell_access{
+    width: 580rpx;
+    overflow: hidden;
+}
+.status{
+    font-size:28rpx;
+    color:#000; 
+    margin-bottom: 10rpx;
+    margin-left: 20rpx;
+}
+.red{
+    color:#e64340;
+}
+.order-status .right-text .des{
+    font-size:24rpx;
+    color:#999; 
+}
 .status-box .status-label{
     width: 150rpx;
     height: 100%;

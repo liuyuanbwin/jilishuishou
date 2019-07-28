@@ -17,11 +17,11 @@ Page({
     },
     onShow : function () {
       var that = this;
-      WXAPI.orderDetail(that.data.orderId, 'token').then(function (res) {
+      WXAPI.orderDetail(that.data.orderId).then(function (res) {
 
         console.log('detail ' + JSON.stringify(res))
-        var goods = JSON.parse(res.goodsInfo)
-        var orderDetailObj = res   
+        var goods = JSON.parse(res.data.goodsInfo)
+        var orderDetailObj = res.data   
         orderDetailObj.goods = goods
         // if (res.code != 0) {
         //   wx.showModal({

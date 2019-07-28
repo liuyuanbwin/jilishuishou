@@ -2,15 +2,15 @@
     <view class="sec-wrap">
         <view class="order-status">
             <view class="icon-box">
-                <image wx:if="{{orderDetail.state==-1}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
+                <image wx:if="{{orderDetail.state== -1}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
                 <image wx:elif="{{orderDetail.state==0}}" class="icon" src="/images/order-details/icon-ddfk.png"></image>
                 <image wx:elif="{{orderDetail.state==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
                 <image wx:elif="{{orderDetail.state==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
                 <image wx:elif="{{orderDetail.state==3 || orderDetail.state==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
             </view>
             <view class="right-text">
-                <view class="status red">{{orderDetail.state}}</view>
-                <view class="des" hidden="true">请于11时59分59秒内付款，超时订单将自动关闭</view>
+                <view class="status red">{{orderDetail.stateInfo}}</view>
+                <view class="des" hidden="{{orderDetail.state==0}}">请于11时59分59秒内付款，超时订单将自动关闭</view>
             </view>
         </view>
         <!-- <block wx:if="{{orderDetail.logistics}}">

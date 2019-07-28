@@ -271,12 +271,13 @@ module.exports = {
     const ndata = {...data}
     const token = wx.getStorageSync('token');
     ndata['token'] = token
-    return request('/api/order/orderlist', true, 'post', ndata)
+    return request('/api/order/userOrder', true, 'post', ndata)
   },
-  orderDetail: (id, token) => {
+  orderDetail: (id) => {
+    const token = wx.getStorageSync('token');
     return request('/api/order/orderDetails', true, 'post', {
       orderId:id,
-      //token
+      token
     })
   },
   orderDelivery: (orderId, token) => {
