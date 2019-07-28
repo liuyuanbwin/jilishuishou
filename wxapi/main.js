@@ -215,8 +215,9 @@ module.exports = {
     })
   },
   defaultAddress: (token) => {
-    return request('/api/address/defaddress', true, 'get', {
-      token
+    const ntoke = wx.getStorageSync('token');
+    return request('/api/address/defaddress', true, 'post', {
+      token:ntoke
     })
   },
   setDefaultAddress: (data) => {

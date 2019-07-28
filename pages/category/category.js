@@ -94,9 +94,9 @@ Page({
       //   goodsWrap.push(wrap);
       // })
 
-      console.log('goods ==> ' + JSON.stringify(res.objList))
+      console.log('goods ==> ' + JSON.stringify(res.data.objList))
 
-      res.objList.forEach(currentItem => {
+      res.data.objList.forEach(currentItem => {
         goods.push(currentItem)
       });
 
