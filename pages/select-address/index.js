@@ -45,13 +45,13 @@ Page({
   initShippingAddress: function() {
     var that = this;
     WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
-      console.log(' --- >>> ' + JSON.stringify(res.objList))
+      console.log(' --- >>> ' + JSON.stringify(res.data.objList))
 
-      if (res.objList.length != 0) {
+      if (res.data.objList.length != 0) {
         that.setData({
-          addressList: res.objList
+          addressList: res.data.objList
         });
-      } else if (res.code == 700) {
+      } else if (res.data.code == 700) {
         that.setData({
           addressList: null
         });

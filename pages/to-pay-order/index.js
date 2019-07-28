@@ -144,13 +144,13 @@ Page({
         })
         return;
       }
+      console.log('默认地址以信息 ---> ' + JSON.stringify(that.data.curAddressData))
       if (that.data.peisongType == 'kd') {
-
+        postData.name = that.data.curAddressData.name,
         postData.city = that.data.curAddressData.city,
         postData.region = that.data.curAddressData.region
         postData.address = that.data.curAddressData.address
-        postData.linkMan = that.data.curAddressData.linkMan
-        postData.mobile = that.data.curAddressData.phone
+        postData.phone = that.data.curAddressData.phone
         if(that.data.isDateDelivery){
         postData.dateInfo = that.data.dateDate + ' ' + that.data.dateTime
         }
@@ -263,13 +263,13 @@ Page({
     var that = this;
     WXAPI.defaultAddress().then(function(res){
       console.log('地址列表 ' + JSON.stringify(res))
-      var address = res 
+      var address = res.data 
       that.setData({
         curAddressData:{
           city:address.city,
           region:address.region,
           address:address.address,
-          linkMan:address.name,
+          name:address.name,
           phone:address.phone
         }
       })
