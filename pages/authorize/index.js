@@ -162,7 +162,7 @@ Page({
                                 wx.navigateBack();
                             }else{
                                 wx.navigateTo({
-                                    url: "/pages/order-list/index"
+                                    url: "/pages/rider-orderlist/rider-orderlist"
                                   })
                             }
                             
