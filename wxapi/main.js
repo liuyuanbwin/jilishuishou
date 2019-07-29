@@ -226,6 +226,12 @@ module.exports = {
       token:ntoke
     })
   },
+  riderOrderlist:() => {
+    const token = wx.getStorageSync('token')
+    return request('/api/order/orderlist', true, 'post', {
+      token
+    })
+  },
   setDefaultAddress: (data) => {
     return request('/api/address/setdefaddress', true, 'post', data)
   },

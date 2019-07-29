@@ -156,7 +156,7 @@ Page({
     //   postData.status = that.data.currentType;
     // }
     //this.getOrderStatistics();
-    WXAPI.orderList(postData).then(function(res) {
+    WXAPI.riderOrderlist(postData).then(function(res) {
         if(res){
 
 
