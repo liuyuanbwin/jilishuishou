@@ -77,6 +77,29 @@ Page({
       }
     })
   },
+  toCatchOrder: function(e){
+    const that = this
+    const orderId = e.currentTarget.dataset.id
+    WXAPI.catchOrder(orderId).then(function(res) {
+    if(res.code == 0){
+      wx.showModal({
+        title:'提示',
+        content:'抢单成功',
+        showCancel:false
+      })
+    } else {
+      wx.showModal({
+        title:'提示',
+        content:'抢单失败',
+        showCancel:false
+      })
+    }
+
+    this.getOrderList()
+
+  })
+  
+  },
   _toPayTap: function (orderId, money){
     const _this = this
     if (money <= 0) {
@@ -146,38 +169,42 @@ Page({
   },
   onShow: function() {
     // 获取订单列表
-    var that = this;
-    var postData = {
-      token: wx.getStorageSync('token'),
-      page:1
-    };
    // postData.hasRefund = that.data.hasRefund;
     // if (!postData.hasRefund) {
     //   postData.status = that.data.currentType;
     // }
     //this.getOrderStatistics();
+    this.getOrderList()
+  },
+  getOrderList: function(){
+
+    var that = this;
+    var postData = {
+      token: wx.getStorageSync('token'),
+      page:1
+    };
     WXAPI.riderOrderlist(postData).then(function(res) {
-        if(res){
+      if(res){
 
 
-        var objs = []
-        objs = res.data.objList
-        objs.forEach(element => {
-          element.goods = JSON.parse(element.goodsInfo)[0]
-        });
+      var objs = []
+      objs = res.data.objList
+      objs.forEach(element => {
+        element.goods = JSON.parse(element.goodsInfo)[0]
+      });
 
-        console.log('objs -> ' + objs + 'objs -> ' + JSON.stringify(objs))
-        that.setData({
-          orderList: objs
-        });
-      } else {
-        that.setData({
-          orderList: null,
-          logisticsMap: {},
-          goodsMap: {}
-        });
-      }
-    })
+      console.log('objs -> ' + objs + 'objs -> ' + JSON.stringify(objs))
+      that.setData({
+        orderList: objs
+      });
+    } else {
+      that.setData({
+        orderList: null,
+        logisticsMap: {},
+        goodsMap: {}
+      });
+    }
+  })
   },
   onHide: function() {
     // 生命周期函数--监听页面隐藏

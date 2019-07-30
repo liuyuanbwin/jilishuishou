@@ -26,6 +26,10 @@ const request = (url, needSubDomain, method, data) => {
   })
 }
 
+
+
+
+
 /**
  * 小程序的promise没有finally方法，自己扩展下
  */
@@ -51,6 +55,14 @@ Promise.prototype.finally = function (callback) {
 
 module.exports = {
   request,
+  //抢单
+  catchOrder:(id) => {
+    const token = wx.getStorageSync('token');
+    return request('/api/order/acceptorder', true, 'post', {
+      id,
+      token
+    })
+  },
   queryMobileLocation: (data) => {
     return request('/common/mobile-segment/location', false, 'get', data)
   },
