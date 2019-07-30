@@ -1,6 +1,6 @@
 
 
-<view wx:if='{{isOrder}}'>
+<view wx:if='{{isOrder}}' style="margin-bottom: 100rpx;">
     <view wx:if='{{!hasRefund}}' class="status-box">
         <view
             bindtap="statusTap"

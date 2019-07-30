@@ -95,7 +95,7 @@ Page({
       })
     }
 
-    this.getOrderList()
+    that.getOrderList()
 
   })
   
