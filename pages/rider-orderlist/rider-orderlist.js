@@ -27,6 +27,7 @@ Page({
     })
   },
   statusTap: function(e) {
+    console.log('点击了 ---- ' + e.currentTarget.dataset.index)
     const curType = e.currentTarget.dataset.index;
     this.data.currentType = curType
     this.setData({
@@ -168,6 +169,7 @@ Page({
     })
   },
   onShow: function() {
+    console.log('--- SHOW ---')
     // 获取订单列表
    // postData.hasRefund = that.data.hasRefund;
     // if (!postData.hasRefund) {
@@ -181,7 +183,8 @@ Page({
     var that = this;
     var postData = {
       token: wx.getStorageSync('token'),
-      page:1
+      page:1,
+      state:that.data.currentType + 1
     };
     WXAPI.riderOrderlist(postData).then(function(res) {
       if(res){
